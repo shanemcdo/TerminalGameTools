@@ -78,6 +78,3 @@ def get_yes_no_response(cursor: str = '>', prompt: str = None) -> bool:
     :returns: a boolean; True if yes was selected and False if No was
     """
     return not give_options(['Yes', 'No'], cursor, prompt)
-
-if __name__ == '__main__':
-    colorama.init()
