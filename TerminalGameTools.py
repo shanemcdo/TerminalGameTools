@@ -40,9 +40,8 @@ def give_options(options: [any, ...], cursor: str = '>', prompt: str = None, sta
     options_len = len(options)
     empty_cursor = ' ' * cursor_len
     current_index = starting_index
-    if prompt is None:
-        prompt = 'Please select an option:'
-    print(prompt)
+    if prompt is not None:
+        print(prompt)
     while 1:
         for i, item in enumerate(options):
             print(cursor if current_index == i else empty_cursor, item)
@@ -53,7 +52,7 @@ def give_options(options: [any, ...], cursor: str = '>', prompt: str = None, sta
                 current_index += options_len
         elif ch == b's':
             current_index += 1
-            if current_index > options_len:
+            if current_index >= options_len:
                 current_index %= options_len
         elif ch == b' ' or ch == b'\r':
             break
@@ -65,7 +64,20 @@ def give_options(options: [any, ...], cursor: str = '>', prompt: str = None, sta
                     current_index += options_len
             elif key_code == 80: # down arrow
                 current_index += 1
-                if current_index > options_len:
+                if current_index >= options_len:
                     current_index %= options_len
         move_cursor_rel(0, -options_len)
     return current_index, options[current_index]
+
+def get_yes_no_response(cursor: str = '>', prompt: str = None) -> bool:
+    """
+    colorama.init must be called for this function to work
+    Allows a user to select yes or no using arrow keys/wasd and enter/space
+    :cursor: the cursor that will be printed before the current option
+    :prompt: the prompt to be printed before the the menu
+    :returns: a boolean; True if yes was selected and False if No was
+    """
+    return not give_options(['Yes', 'No'], cursor, prompt)
+
+if __name__ == '__main__':
+    colorama.init()
