@@ -78,3 +78,16 @@ def get_yes_no_response(cursor: str = '>', prompt: str = None) -> bool:
     :returns: a boolean; True if yes was selected and False if No was
     """
     return not give_options(['Yes', 'No'], cursor, prompt)
+
+def get_response(prompt: str = None, format_args: (any, ...) = None) -> str:
+    """
+    Asks user for input then waits for input
+    :prompt: The string to print before
+    :format_args: the args to be passed to the format statement
+    :returns: the string entered by the user
+    """
+    if prompt is None:
+        prompt = 'Please enter {}: '
+    if format_args is not None:
+        prompt = prompt.format(*format_args)
+    return input(prompt)
