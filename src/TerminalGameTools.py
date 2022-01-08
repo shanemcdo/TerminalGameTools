@@ -79,7 +79,7 @@ def get_yes_no_response(cursor: str = '>', prompt: str = None) -> bool:
     :prompt: the prompt to be printed before the the menu
     :returns: a boolean; True if yes was selected and False if No was
     '''
-    return not give_options(['Yes', 'No'], cursor, prompt)
+    return not give_options(['Yes', 'No'], cursor, prompt)[0]
 
 def get_response(prompt: str = '') -> str:
     '''
