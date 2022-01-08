@@ -40,32 +40,34 @@ def give_options(options: list[any], cursor: str = '>', prompt: str = None, star
     options_len = len(options)
     empty_cursor = ' ' * cursor_len
     current_index = starting_index
+    def up():
+        nonlocal current_index
+        current_index -= 1
+        if current_index < 0:
+            current_index += options_len
+    def down():
+        nonlocal current_index
+        current_index += 1
+        if current_index >= options_len:
+            current_index %= options_len
     if prompt is not None:
         print(prompt)
     while 1:
         for i, item in enumerate(options):
             print(cursor if current_index == i else empty_cursor, item)
-        ch = getch().lower()
-        if ch == 'w':
-            current_index -= 1
-            if current_index < 0:
-                current_index += options_len
-        elif ch == 's':
-            current_index += 1
-            if current_index >= options_len:
-                current_index %= options_len
-        elif ch == ' ' or ch == '\r' or ch == '\n':
-            break
-        elif ord(ch) == 224:
-            key_code = ord(getch())
-            if key_code == 72: # up arrow
-                current_index -= 1
-                if current_index < 0:
-                    current_index += options_len
-            elif key_code == 80: # down arrow
-                current_index += 1
-                if current_index >= options_len:
-                    current_index %= options_len
+        match getch().lower():
+            case 'w':
+                up()
+            case 's':
+                down()
+            case ' ' | '\n':
+                break
+            case '\x1b': # special key
+                match getch() + getch():
+                    case '[A': # up arrow
+                        up()
+                    case '[B': # down arrow
+                        down()
         move_cursor_rel(0, -options_len)
     return current_index, options[current_index]
 
