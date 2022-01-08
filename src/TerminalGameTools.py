@@ -1,5 +1,5 @@
-import colorama
-from msvcrt import getch
+from getch import getch
+from colorama import init
 
 def move_cursor(x: int, y: int):
     '''
@@ -46,15 +46,15 @@ def give_options(options: [any, ...], cursor: str = '>', prompt: str = None, sta
         for i, item in enumerate(options):
             print(cursor if current_index == i else empty_cursor, item)
         ch = getch().lower()
-        if ch == b'w':
+        if ch == 'w':
             current_index -= 1
             if current_index < 0:
                 current_index += options_len
-        elif ch == b's':
+        elif ch == 's':
             current_index += 1
             if current_index >= options_len:
                 current_index %= options_len
-        elif ch == b' ' or ch == b'\r':
+        elif ch == ' ' or ch == '\r' or ch == '\n':
             break
         elif ord(ch) == 224:
             key_code = ord(getch())
