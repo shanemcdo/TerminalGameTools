@@ -1,5 +1,5 @@
+import colorama
 from getch import getch
-from colorama import init
 
 def move_cursor(x: int, y: int):
     '''
@@ -26,7 +26,7 @@ def move_cursor_rel(x: int, y: int):
     elif x < 0: # x is less than 0
         print(f'\033[{abs(x)}D', end='', flush=True) # move abs(x) left
 
-def give_options(options: [any, ...], cursor: str = '>', prompt: str = None, starting_index: int = 0) -> (int, any):
+def give_options(options: list[any], cursor: str = '>', prompt: str = None, starting_index: int = 0) -> (int, any):
     '''
     colorama.init must be called for this function to work
     Allows the user to select from a list of options visually using arrow keys/wasd and enter/space
