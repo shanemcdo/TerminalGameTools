@@ -6,7 +6,7 @@ with open('README.md', 'r') as f:
 
 setup(
     name="TerminalGameTools",
-    version='0.0.2',
+    version='0.0.3',
     author="KermitPurple (Shane McDonough)",
     description='A package to allow for terminal text-based games to be easier to create',
     long_description_content_type="text/markdown",
