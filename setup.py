@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from setuptools import setup
 
 with open('README.md', 'r') as f:
@@ -12,5 +13,5 @@ setup(
     long_description=long_description,
     py_modules=['TerminalGameTools'],
     package_dir={'': 'src'},
-    install_requires=['colorama'],
+    install_requires=['colorama', 'getch'],
 )
