@@ -1,3 +1,3 @@
 # Terminal Game Tools
 
-Works exclusively on windows currently
+most functions need colorama.init to be called before using
